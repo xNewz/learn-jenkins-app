@@ -54,7 +54,6 @@ pipeline {
                             reuseNode true
                         }
                     }
-
                     steps {
                         sh '''
                             npm install serve
@@ -81,6 +80,12 @@ pipeline {
                     echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
                 '''
             }
+        }
+    }
+
+    post {
+        always {
+            deleteDir() // Clean up workspace to avoid build-up of files
         }
     }
 }
